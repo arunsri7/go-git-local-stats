@@ -1,10 +1,12 @@
 package main
 
+//TODO
 //check why we call recursive using another function
+//check EOF & Scanner in  error in parseFileLinesToSlice
+
 import (
 	"bufio"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -13,7 +15,7 @@ import (
 )
 
 func main() {
-	scan("/home/aruniyer/Projects/golang")
+	scan("/home/aruniyer/Projects")
 }
 
 //function to handle the scanning, and writing the list of repos to a file
@@ -22,10 +24,6 @@ func scan(folder string) {
 	filePath := getDotFilePath()
 	addNewSliceElementsToFile(filePath, repositories)
 }
-
-// func recursiveScanFolder(folder string) []string {
-// 	return scanGitFolders(make([]string, 0), folder)
-// }
 
 // scanGitFolders returns a list of subfolders of `folder` ending with `.git`.
 // Returns the base folder of the repo, the .git folder parent.
@@ -61,7 +59,8 @@ func scanGitFolders(folders []string, folder string) []string {
 	return folders
 }
 
-// creates a dot file named "gogitlocalstats" in the home directory
+// creates a dot file named "gogitlocalstats" in the
+//home directory
 func getDotFilePath() string {
 	usr, err := user.Current()
 	if err != nil {
@@ -86,29 +85,29 @@ func addNewSliceElementsToFile(filePath string, newRepos []string) {
 // of each line and parses it to a slice of strings.
 func parseFileLinesToSlice(filePath string) []string {
 	f := openFile(filePath)
-	defer f.Close() //?
+	defer f.Close()
 	var lines []string
-	scanner := bufio.NewScanner(f) //?
-	for scanner.Scan() {           //?
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
 	if err := scanner.Err(); err != nil {
 		print(lines)
-		if err != io.EOF {
-			panic(err)
-		}
-		panic(err)
+		// if err != io.EOF {
+		// 	panic(err)
+		// }
 	}
 	print(lines)
 	return lines
 }
 
-// openFile opens the file located at `filePath`. Creates it if not existing.
+// openFile opens the file located at `filePath`.
+//Creates it if not existing.
 func openFile(filePath string) *os.File {
 	f, err := os.OpenFile(filePath, os.O_APPEND|os.O_WRONLY, 0755)
 	if err != nil {
 		if os.IsNotExist(err) {
-			// file does not exist
+			// If file does not exist
 			_, err = os.Create(filePath)
 			if err != nil {
 				panic(err)
