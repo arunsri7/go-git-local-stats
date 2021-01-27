@@ -1,5 +1,5 @@
 # go-git-local-stats
-Visualize your local Git contributions with Go https://flaviocopes.com/go-git-contributions/
+Visualize your local Git contributions with Go
 
 ## Usage:
   * go run main.go -add "<Path to the directory with .git files>"
