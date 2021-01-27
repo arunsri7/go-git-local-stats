@@ -1,7 +1,7 @@
 # go-git-local-stats
 Visualize your local Git contributions with Go https://flaviocopes.com/go-git-contributions/
 
-##Usage:
+## Usage:
   * go run main.go -add "<Path to the directory with .git files>"
   * go run main.go -email "< Your mail id >"
   
